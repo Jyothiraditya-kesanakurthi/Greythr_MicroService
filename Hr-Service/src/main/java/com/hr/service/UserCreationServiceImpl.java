@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hr.Dto.LoginDto;
 import com.hr.Dto.UserDetailsDto;
-import com.hr.entites.UserDetails;
+import com.hr.entites.EmployessList;
 import com.hr.repository.UserCreationRepo;
 
 import lombok.RequiredArgsConstructor;
@@ -23,21 +23,21 @@ public class UserCreationServiceImpl implements UserCreationService {
 	private final PasswordEncoder passwordEncoder;
 
 	@Override
-	public UserDetails userCreation(UserDetailsDto userDetails) {
+	public EmployessList userCreation(UserDetailsDto userDetails) {
 
-		UserDetails user = new UserDetails();
+		EmployessList user = new EmployessList();
 		BeanUtils.copyProperties(userDetails, user);
 
 		user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
-		UserDetails Newuser = userCreationRepo.save(user);
+		EmployessList Newuser = userCreationRepo.save(user);
 
 		return Newuser;
 
 	}
 
-	public UserDetails validateLoginCredentials(LoginDto loginDto) {
+	public EmployessList validateLoginCredentials(LoginDto loginDto) {
 
-	    UserDetails user = userCreationRepo
+		EmployessList user = userCreationRepo
 	            .findByempNetworkId(loginDto.getEmpNetworkId());
 
 	    // Check user exists

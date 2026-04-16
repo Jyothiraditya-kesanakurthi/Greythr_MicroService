@@ -2,12 +2,12 @@ package com.hr.service;
 
 import com.hr.Dto.LoginDto;
 import com.hr.Dto.UserDetailsDto;
-import com.hr.entites.UserDetails;
+import com.hr.entites.EmployessList;
 
 public interface UserCreationService {
 	
-	UserDetails userCreation(UserDetailsDto userDetails);
+	EmployessList userCreation(UserDetailsDto employessList);
 	
-	UserDetails validateLoginCredentials(LoginDto loginDto);
+	EmployessList validateLoginCredentials(LoginDto loginDto);
 
 }

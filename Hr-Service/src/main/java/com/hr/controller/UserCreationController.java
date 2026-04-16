@@ -1,43 +1,61 @@
 package com.hr.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.hr.Dto.LoginDto;
 import com.hr.Dto.UserDetailsDto;
-import com.hr.entites.UserDetails;
+import com.hr.entites.EmployessList;
 import com.hr.service.UserCreationService;
 
 import lombok.RequiredArgsConstructor;
-
-@RestController
-@RequestMapping("/hr")
 @RequiredArgsConstructor
+@Controller
+@RequestMapping("/hr")
 public class UserCreationController {
 
 	@Autowired
 	private UserCreationService userCreationService;
+	
+	@GetMapping("/home")
+	public String home() {
+		return"view/signup";
+	}
+	
+	@GetMapping("/signIn")
+	public String loginPage() {
+		return"view/login";
+	}
+	
+	@GetMapping("/homePage")
+	public String homePage() {
+		return"view/home";
+	}
+	
+	
 
 	@PostMapping("/createUser")
-	public String createUser(@RequestBody UserDetailsDto userDetails) {
+	public String createUser(UserDetailsDto userDetails) {
 		
-		UserDetails userSavedRecord=userCreationService.userCreation(userDetails);
+		EmployessList userSavedRecord=userCreationService.userCreation(userDetails);
 		if(userSavedRecord !=null) {
-		return "User Created Successfully";
+		return "view/login";
 		}
 		
-		return "User Creation failed";
+		return "view/signup";
 		
 	}
 	
-	@PostMapping("/login")
-	public String validateLoginCredentials(@RequestBody LoginDto loginDto) {
-
-	    UserDetails user = userCreationService.validateLoginCredentials(loginDto);
-
-	    return "Hi " + user.getEmpName();
-	}
+	/*
+	 * @PostMapping("/login") public String validateLoginCredentials(LoginDto
+	 * loginDto) {
+	 * 
+	 * EmployessList user = userCreationService.validateLoginCredentials(loginDto);
+	 * 
+	 * if(user !=null) { return"view/home.html"; }
+	 * 
+	 * return "view/Error.html"; }
+	 */
 }

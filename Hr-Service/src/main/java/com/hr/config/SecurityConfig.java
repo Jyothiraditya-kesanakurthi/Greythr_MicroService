@@ -10,19 +10,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable()) // disable CSRF for testing
-            .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll() // allow all APIs
-            );
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/hr/home", "/hr/signIn", "/hr/createUser")
+						.permitAll().anyRequest().authenticated())
+				.formLogin(form -> form.loginPage("/hr/signIn").failureUrl("/hr/signIn?error=true").loginProcessingUrl("/login")
+						.usernameParameter("empNetworkId").passwordParameter("password")// by default spring expects
+						 // username parameter as
+						// username
+						.defaultSuccessUrl("/hr/homePage", true).permitAll());
 
-        return http.build();
-    }
+		return http.build();
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }

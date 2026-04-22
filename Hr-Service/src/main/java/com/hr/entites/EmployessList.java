@@ -1,7 +1,11 @@
 package com.hr.entites;
 
+import com.hr.util.Role;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,14 +31,31 @@ public class EmployessList {
 	@Column(name ="Employe_Desgination")
 	private String desgination;
 	
-	
-	
-	public void setId(long id) {
-		this.id=id;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Role role;
+
+	public EmployessList(Long id, String empName, String empNetworkId, String password, String desgination, Role role) {
+		super();
+		this.id = id;
+		this.empName = empName;
+		this.empNetworkId = empNetworkId;
+		this.password = password;
+		this.desgination = desgination;
+		this.role = role;
 	}
-	
-	public long getId() {
+
+	public EmployessList() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getEmpName() {
@@ -68,27 +89,17 @@ public class EmployessList {
 	public void setDesgination(String desgination) {
 		this.desgination = desgination;
 	}
-	
-	
-	
-	public EmployessList(long id,String empName, String empNetworkId, String password, String desgination) {
-		this.id =id;
-		this.empName =empName;
-		this.empNetworkId = empNetworkId;
-		this.password =password;
-		this.desgination = desgination;
+
+	public Role getRole() {
+		return role;
 	}
 
-	@Override
-	public String toString() {
-		return "UserDetails [id=" + id + ", empName=" + empName + ", empNetworkId=" + empNetworkId + ", password="
-				+ password + ", desgination=" + desgination + "]";
+	public void setRole(Role role) {
+		this.role = role;
 	}
-
-	public EmployessList() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
+	
+	
 	
 	
 }

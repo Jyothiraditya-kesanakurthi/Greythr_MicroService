@@ -1,17 +1,14 @@
-package com.Emp.feign;
+package com.Admin.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.Emp.Dto.LoginDto;
-
-
+import com.Admin.Dto.LoginDto;
 
 @FeignClient(name="Hr-Service")
 public interface HrClient {
 
-	
 	@PostMapping("/hr/login")
-	 String validateLoginCredentials( LoginDto loginDto);
+	String validateLoginCredentials(LoginDto loginDto);
+
 }

@@ -1,5 +1,7 @@
 package com.hr.Dto;
 
+import com.hr.util.Role;
+
 import lombok.Data;
 
 @Data
@@ -13,6 +15,16 @@ public class UserDetailsDto {
 
 	private String desgination;
 
+	private Role role;
+	
+	public void setRole(Role role) {
+		this.role =role;
+	}
+	
+	public Role getRole() {
+		return role;
+	}
+	
 	public String getEmpName() {
 		return empName;
 	}

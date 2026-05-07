@@ -18,7 +18,7 @@ public class JwtGatewayFilter implements GlobalFilter {
         System.out.println("Path from Api " + path);
 
         // 🔓 Allow login API without token
-        if (path.contains("/hr/login") || path.contains("/hr/createUser")) {
+        if (path.contains("/hr/login") ) {
             return chain.filter(exchange);
         }
 

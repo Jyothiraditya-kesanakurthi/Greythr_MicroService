@@ -1,7 +1,9 @@
 package com.hr.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,14 +28,6 @@ public class UserCreationController {
 
 	private final JwtUtil jwtUtil;
 
-	/*
-	 * @GetMapping("/home") public String home() { return "view/signup"; }
-	 * 
-	 * @GetMapping("/signIn") public String loginPage() { return "view/login"; }
-	 * 
-	 * @GetMapping("/homePage") public String homePage() { return "view/home"; }
-	 */
-
 	@PostMapping("/createUser")
 	public String createUser(@RequestBody UserDetailsDto userDetails) {
 
@@ -42,24 +36,20 @@ public class UserCreationController {
 			return "User created successfully";
 		}
 
-		return "view/signup";
+		return "Error";
 
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestBody LoginDto loginDto) {
+	public Map<String, Object> login(@RequestBody LoginDto loginDto) {
 
 		EmployessList user = userCreationService.validateLoginCredentials(loginDto);
 
-		
-		String finalToken = jwtUtil.generateToken(user.getEmpNetworkId(), user.getRole().name());
-		
-		System.out.println(finalToken);
-		return finalToken;
+		String token = jwtUtil.generateToken(user.getEmpNetworkId(), user.getRole().name());
+
+		System.out.println(token);
+		return Map.of("token", token, "user",
+				new UserDetailsDto(user.getEmpName(), user.getEmpNetworkId(), user.getDesgination(), user.getRole()));
 	}
-	
-	@GetMapping("/home")
-	public String hrHome() {
-		return "This is Hr home";
-	}
+
 }

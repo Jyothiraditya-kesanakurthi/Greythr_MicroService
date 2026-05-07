@@ -16,15 +16,15 @@ public class UserDetailsDto {
 	private String desgination;
 
 	private Role role;
-	
+
 	public void setRole(Role role) {
-		this.role =role;
+		this.role = role;
 	}
-	
+
 	public Role getRole() {
 		return role;
 	}
-	
+
 	public String getEmpName() {
 		return empName;
 	}
@@ -57,4 +57,22 @@ public class UserDetailsDto {
 		this.desgination = desgination;
 	}
 
+	public UserDetailsDto() {
+
+	}
+
+	public UserDetailsDto(String empName, String empNetworkId, String password, String desgination, Role role) {
+		this.empName = empName;
+		this.empNetworkId = empNetworkId;
+		this.password = password;
+		this.desgination = desgination;
+		this.role = role;
+	}
+
+	public UserDetailsDto(String empName, String empNetworkId, String desgination, Role role) {
+		this.empName = empName;
+		this.empNetworkId = empNetworkId;
+		this.desgination = desgination;
+		this.role = role;
+	}
 }
